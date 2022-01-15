@@ -66,7 +66,5 @@ app.use('/', require('./router/rutasCursos'));
 //Rutas Login
 app.use('/', require('./router/rutasLoginRegistro'));
 
-app.use('/', require('./API/routes'));
-
 
 app.listen(port, () => console.log('Serven on port', port));
