@@ -67,7 +67,7 @@ app.use('/', require('./router/rutasCursos'));
 app.use('/', require('./router/rutasLoginRegistro'));
 
 //Rutas Pago
-app.use('/', require('./router/rutasPago'));
+// app.use('/', require('./router/rutasPago'));
 
 app.use('/', require('./API/routes'));
 

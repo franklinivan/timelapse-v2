@@ -1,14 +1,14 @@
 {
   "name": "timelapse",
-  "version": "1.0.0",
-  "description": "Proyecto final, aplicación web con node.js",
+  "version": "2.0.0",
+  "description": "Refactorización del proyecto TimeLapse.",
   "main": "app.js",
   "scripts": {
     "dev": "nodemon src/app.js",
     "start": "node src/app.js"
   },
   "keywords": [],
-  "author": "Alvarado, Arrue, Ryan, Ñañez, Ye",
+  "author": "Franklin Alvarado",
   "license": "ISC",
   "dependencies": {
     "@vonage/server-sdk": "^2.10.10",

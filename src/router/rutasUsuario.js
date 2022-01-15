@@ -119,62 +119,6 @@ router.post('/editarFoto/:id', upload.single('profile'), async (req, res) => {
 });
 
 
-// Ruta mi progreso
-router.get('/miProgreso', isAuthenticated, async (req, res) => {
-
-    try {
-        const cursosComprados = await user.aggregate([
-            {
-                $lookup:
-                {
-                    from: 'products',
-                    localField: 'cursos.id_curso',
-                    foreignField: '_id',
-                    as: 'cursosComprados'
-                }
-            },
-            {
-                $match: {
-                    user: req.user.user
-                }
-            },
-            { $unwind: "$cursos" }
-        ]);
-        var cursos = [];
-
-        for (let i = 0; i < cursosComprados.length; i++) {
-            var progress = (req.user.cursos[i].progress / 10) * 100;
-            var rank = defineRank(progress);
-
-            var logoAndName = findProductLogoAndName(cursosComprados[i].cursosComprados, req.user.cursos[i].id_curso)
-
-            cursos.push({
-                "id": req.user.cursos[i].id_curso,
-                "name": logoAndName.name,
-                "logo": logoAndName.logo,
-                "progress": progress,
-                "rankName": rank.name,
-                "rankLogo": rank.logo,
-                "missing": 10 - req.user.cursos[i].progress
-            })
-
-        }
-
-        //Pequeña validacion para que un ADMIN no ingrese a esta ruta.
-        if (req.user.role != 'admin') {
-            res.render('user/progreso', {
-                cursos
-            });
-        } else {
-            res.redirect('/');
-        }
-
-    } catch (err) {
-        console.log(err);
-    }
-
-});
-
 function isAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
@@ -182,40 +126,100 @@ function isAuthenticated(req, res, next) {
     res.redirect('/');
 }
 
-function defineRank(progress) {
 
-    if (progress <= 10) {
-        return {
-            'name': 'Aprendiz',
-            'logo': 'novato.png'
-        };
-    } else if (progress == 20) {
-        return {
-            'name': 'Medio',
-            'logo': 'medio.png'
-        };
-    }
-    return {
-        'name': 'Experto',
-        'logo': 'master.png'
-    };
-}
+// CODIGO DE PROGRESO, POR AHORA NO LO ESTOY USANDO.
 
-function findProductLogoAndName(cursosTienda, id) {
 
-    var logoAndName = {};
+// Ruta mi progreso
+// router.get('/miProgreso', isAuthenticated, async (req, res) => {
 
-    cursosTienda.forEach(curso => {
-        if (JSON.stringify(curso._id) == JSON.stringify(id)) {
-            logoAndName = {
-                name: curso.name,
-                logo: curso.logo
-            }
-        }
-    });
+//     try {
+//         const cursosComprados = await user.aggregate([
+//             {
+//                 $lookup:
+//                 {
+//                     from: 'products',
+//                     localField: 'cursos.id_curso',
+//                     foreignField: '_id',
+//                     as: 'cursosComprados'
+//                 }
+//             },
+//             {
+//                 $match: {
+//                     user: req.user.user
+//                 }
+//             },
+//             { $unwind: "$cursos" }
+//         ]);
+//         var cursos = [];
 
-    return logoAndName
-}
+//         for (let i = 0; i < cursosComprados.length; i++) {
+//             var progress = (req.user.cursos[i].progress / 10) * 100;
+//             var rank = defineRank(progress);
+
+//             var logoAndName = findProductLogoAndName(cursosComprados[i].cursosComprados, req.user.cursos[i].id_curso)
+
+//             cursos.push({
+//                 "id": req.user.cursos[i].id_curso,
+//                 "name": logoAndName.name,
+//                 "logo": logoAndName.logo,
+//                 "progress": progress,
+//                 "rankName": rank.name,
+//                 "rankLogo": rank.logo,
+//                 "missing": 10 - req.user.cursos[i].progress
+//             })
+
+//         }
+
+//         //Pequeña validacion para que un ADMIN no ingrese a esta ruta.
+//         if (req.user.role != 'admin') {
+//             res.render('user/progreso', {
+//                 cursos
+//             });
+//         } else {
+//             res.redirect('/');
+//         }
+
+//     } catch (err) {
+//         console.log(err);
+//     }
+
+// });
+
+// function defineRank(progress) {
+
+//     if (progress <= 10) {
+//         return {
+//             'name': 'Aprendiz',
+//             'logo': 'novato.png'
+//         };
+//     } else if (progress == 20) {
+//         return {
+//             'name': 'Medio',
+//             'logo': 'medio.png'
+//         };
+//     }
+//     return {
+//         'name': 'Experto',
+//         'logo': 'master.png'
+//     };
+// }
+
+// function findProductLogoAndName(cursosTienda, id) {
+
+//     var logoAndName = {};
+
+//     cursosTienda.forEach(curso => {
+//         if (JSON.stringify(curso._id) == JSON.stringify(id)) {
+//             logoAndName = {
+//                 name: curso.name,
+//                 logo: curso.logo
+//             }
+//         }
+//     });
+
+//     return logoAndName
+// }
 
 
 module.exports = router;
