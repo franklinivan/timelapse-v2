@@ -5,7 +5,7 @@ const apiKey = process.env.VONAGE_APIKEY;
 const apiSecret = process.env.VONAGE_APISECRET;
 const vonage = new Vonage({ apiKey: apiKey, apiSecret: apiSecret });
 
-const User = require('../models/user');
+const User = require('../models/User');
 
 //Crear sesion del usuario en el servidor
 passport.serializeUser((user, done) => {

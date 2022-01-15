@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const Statistic = require('../models/statistic');
-const Sale = require('../models/sale');
-const Product = require('../models/product');
-const Users = require('../models/user');
+// const Statistic = require('../models/statistic');
+// const Sale = require('../models/sale');
+const Product = require('../models/Product');
+const Users = require('../models/User');
 const multer = require('multer');
 
 

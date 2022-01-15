@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const product = require('../models/product');
+const product = require('../models/Product');
 
 // Rutas de inicio
 router.get('/', (_, res) => {

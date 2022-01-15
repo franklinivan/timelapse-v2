@@ -1,6 +1,6 @@
 const express = require('express');
-const product = require('../models/product');
-const user = require('../models/user');
+const product = require('../models/Product');
+const user = require('../models/User');
 const router = express.Router();
 
 // Rutas para cursos
