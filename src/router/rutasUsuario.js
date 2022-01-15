@@ -93,7 +93,7 @@ router.post('/editarContrasena/:id', async (req, res) => {
 //USAMOS LA DEPENDENCIA MULTER PARA ALMACENAR UNA IMAGEN EN LA CARPETA PRODUCT
 const upload = multer({
     storage: multer.diskStorage({
-        destination: '../public/images/profiles',
+        destination: '/images/profiles',
         filename: (_, file, cb) => {
             cb(null, file.originalname)
         }

@@ -10,7 +10,7 @@ const multer = require('multer');
 //UZAMOS LA DEPENDENCIA MULTER PARA ALMACENAR UNA IMAGEN EN LA CARPETA PRODUCT
 const upload = multer({
     storage: multer.diskStorage({
-      destination:'../public/images/products',
+      destination:'/images/products',
       filename: (req, file, cb)=>{
         cb(null,file.originalname)
         }
