@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const passport = require('passport');
-const mongoose = require('mongoose');
 
 router.get('/userType',(req,res) => {
     console.log(req.body);
