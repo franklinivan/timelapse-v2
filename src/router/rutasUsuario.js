@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 router.get('/perfil', isAuthenticated, async (req, res) => {
 
     try {
-        const purchasedCourses  = await user.aggregate([ // operación para obtener los cursos del usuario log.
+        const purchasedCourses = await user.aggregate([ // operación para obtener los cursos del usuario log.
             {
                 $lookup:
                 {
