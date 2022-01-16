@@ -36,7 +36,7 @@
                                         <p class="text-center"><%= curso.price %></p>
                                         <br>
                                         <div class="button text-center">
-                                            <a class="btn btn-add" onclick="M.toast({html: '<%= curso.name %> añadido'})">Añadir a carrito</a>
+                                            <a class="btn btn-add" data-product="<%= JSON.stringify(curso) %>"  onclick="M.toast({html: '<%= curso.name %> añadido'})">Añadir a carrito</a>
                                         </div>
                                     </div>
                                 </div>
@@ -71,7 +71,7 @@
                                         <p class="text-center"><%= curso.price %></p>
                                         <br>
                                         <div class="button text-center">
-                                            <a class="btn btn-add" onclick="M.toast({html: '<%= curso.name %> añadido'})">Añadir a carrito</a>
+                                            <a class="btn btn-add" data-product="<%= JSON.stringify(curso) %>" onclick="M.toast({html: '<%= curso.name %> añadido'})">Añadir a carrito</a>
                                         </div>
                                     </div>
                                 </div>
@@ -98,6 +98,24 @@
     <script>
         var element = document.getElementById('tienda');
         element.classList.add('active');
+
+        const btnAddToCart = document.querySelectorAll('.btn-add');
+        let cart = [];
+        
+        for (let i = 0; i < btnAddToCart.length; i++) {
+            btnAddToCart[i].addEventListener('click', () =>{
+                const data = btnAddToCart[i].dataset.product;
+                createLocalStorage(data);
+            });
+        }
+
+        const createLocalStorage = data =>{
+            
+            cart.push(data);
+            localStorage.setItem('cartx', cart);
+        }
+
+
     </script>
 
     <%- include('../templates/footer') %>
