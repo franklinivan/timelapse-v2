@@ -111,8 +111,20 @@
 
         const createLocalStorage = data =>{
             
-            cart.push(data);
-            localStorage.setItem('cartx', cart);
+            parse = JSON.parse(data);
+
+            if(localStorage.getItem('cartx')){
+                sis = JSON.parse(localStorage.getItem('cartx'));
+                for (let i = 0; i < sis.length; i++) {
+                    if(sis[i].name === parse.name){
+                        return
+                    }
+                }
+            }
+
+            cart.push(parse);
+            localStorage.setItem('cartx', JSON.stringify(cart));
+            
         }
 
 
