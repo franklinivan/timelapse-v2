@@ -14,7 +14,8 @@
                 <div class="col-lg-4 col-md-4 wow fadeInDown mb-5 mr-5" data-wow-delay=".4s" style="border-right: 3px solid #3764ebd7;">
 
                     <h4 class="text-center wow fadeInDown" data-wow-delay=".4s">Productos</h4>
-                    <div id="items" class="wow fadeInDown" data-wow-delay=".4s"></div>
+                    <div id="items" class="wow fadeInDown" data-wow-delay=".4s">
+                    </div>
                     <div id="toPay" class="wow fadeInDown" data-wow-delay=".4s"></div>
                     
                 </div>
@@ -65,7 +66,130 @@
     var element = document.getElementById('carrito');
     element.classList.add('active');
 
-    
+    const products = JSON.parse(localStorage.getItem('cart'));
+    const items = document.getElementById('items');
+    const toPay = document.getElementById('toPay');
+    const section = document.querySelector('.cartShop');
+
+    document.addEventListener('DOMContentLoaded', () => {
+        if(!localStorage.getItem('cart')){
+            section.innerHTML = `
+            <div class="col-lg-12 wow fadeInDown" data-wow-delay=".4s">
+                <h6 class="text-center mb-3">carrito vacío</h6>
+                <div class="button d-flex justify-content-center">
+                    <a href="/tienda" class="btn">Volver a tienda</a>
+                </div>
+            </div>
+            `;
+            return;
+        }
+        setToCart();
+    });
+
+    const setToCart = () => {
+
+        if (products.length === 0) {
+        section.innerHTML = `
+            <div class="col-lg-12 wow fadeInDown" data-wow-delay=".4s">
+                <h6 class="text-center mb-3">carrito vacío</h6>
+                <div class="button d-flex justify-content-center">
+                    <a href="/tienda" class="btn">Volver a tienda</a>
+                </div>
+            </div>
+            `;
+            localStorage.setItem('cart',JSON.stringify(products));
+            return;
+        }
+
+        items.innerHTML = '';
+        products.forEach(item => {
+            const div = document.createElement('div');
+            const content = `
+            
+            <div class="row">
+
+                <div class="row">
+                    <div class="col-lg-12 d-flex justify-content-end">
+                        <h6 class="delete" data-name="${item.name}" name="delete" style="cursor: pointer;">x</h6>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <img src="/images/products/${item.logo}" alt="imagen" class="" style="height: 100px;">
+                    </div>
+                    <div class="col-lg-8 d-flex align-items-center">
+                        <p>Curso de <span>${item.name}</span></p>
+                        <input type="hidden" name="name" value="${item.name}">
+                        <input type="hidden" name="price" value="${item.price}">
+                    </div>
+                    <hr class="my-3">
+                </div>
+
+            </div>
+            `
+            div.innerHTML = content;
+            items.appendChild(div);
+
+            div.querySelector('.delete').addEventListener('click', removeProduct);
+        });
+
+        payProducts();
+
+        localStorage.setItem('cart', JSON.stringify(products));
+    }
+
+
+    const payProducts = () => {
+        
+
+        let subTotal = 0;
+        let total = 0;
+        products.forEach( item => {
+            subTotal += parseFloat(item.price.$numberDecimal)
+        });
+
+        total = subTotal + (subTotal * .07);
+        
+        
+        toPay.innerHTML = `
+        <div class="row">
+            <div class="col-lg-12 mb-3 px-4 d-flex justify-content-between">
+                <p class="d-inline">Sub Total</p>
+                <p>B/. <span>${subTotal.toFixed(2)}</span></p>
+            </div>
+            <div class="col-lg-12 mb-3 px-4 d-flex justify-content-between">
+                <p class="d-inline">+ Itbms</p>
+                <p class="">7%</p>
+            </div>
+            <div class="col-lg-12 px-4 d-flex justify-content-between">
+                <h4 class="d-inline">Total</h4>
+                <h4>B/. <span name="priceTotal">${total.toFixed(2)}</span></h4>
+                <input type="hidden" name="priceTotal" value="">
+            </div>
+
+            <hr class="my-3">
+        </div>
+
+        <div class="">
+            <div class="col-lg-12 mb-3">
+                <p>¿Tienes algún cupón o tarjeta de regalo?</p>
+            </div>
+            <div class="col-lg-12">
+                <p>¿Te falta algún curso? <a href="/tienda" class="font-weight-bold" style="color: #3763EB !important;">Sigue comprando</a></p>
+            </div>
+        </div>
+        `
+    }
+
+    const removeProduct = e => {
+
+        const name = e.target.dataset.name;
+        
+        for (let i = 0; i < products.length; i++) {
+            if(products[i].name === name){
+                products.splice(i,1);
+                setToCart();
+            }
+        }
+    }
 
 </script>
 <!-- <script src="/js/personal-js/cart.js"></script> -->

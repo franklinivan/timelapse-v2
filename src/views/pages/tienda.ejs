@@ -101,29 +101,35 @@
 
         const btnAddToCart = document.querySelectorAll('.btn-add');
         let cart = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if(localStorage.getItem('cart')){
+                cart = JSON.parse(localStorage.getItem('cart'));
+            }
+        });
         
         for (let i = 0; i < btnAddToCart.length; i++) {
-            btnAddToCart[i].addEventListener('click', () =>{
+            btnAddToCart[i].addEventListener('click', () => {
                 const data = btnAddToCart[i].dataset.product;
                 createLocalStorage(data);
             });
         }
 
-        const createLocalStorage = data =>{
+        const createLocalStorage = data => {
             
             parse = JSON.parse(data);
 
-            if(localStorage.getItem('cartx')){
-                sis = JSON.parse(localStorage.getItem('cartx'));
+            if(localStorage.getItem('cart')){
+                sis = JSON.parse(localStorage.getItem('cart'));
                 for (let i = 0; i < sis.length; i++) {
                     if(sis[i].name === parse.name){
-                        return
+                        return;
                     }
                 }
             }
-
+            
             cart.push(parse);
-            localStorage.setItem('cartx', JSON.stringify(cart));
+            localStorage.setItem('cart', JSON.stringify(cart));
             
         }
 
