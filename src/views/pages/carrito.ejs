@@ -10,7 +10,7 @@
             </div>
         </div>
 
-        <div class="row cartShop">
+        <div class="row" id="cartShop">
                 <div class="col-lg-4 col-md-4 wow fadeInDown mb-5 mr-5" data-wow-delay=".4s" style="border-right: 3px solid #3764ebd7;">
 
                     <h4 class="text-center wow fadeInDown" data-wow-delay=".4s">Productos</h4>
@@ -66,42 +66,41 @@
     var element = document.getElementById('carrito');
     element.classList.add('active');
 
-    const products = JSON.parse(localStorage.getItem('cart'));
+    const products = JSON.parse(localStorage.getItem('cart')); // se obtienen los productos parseados.
     const items = document.getElementById('items');
     const toPay = document.getElementById('toPay');
-    const section = document.querySelector('.cartShop');
+    const section = document.getElementById('cartShop');
 
     document.addEventListener('DOMContentLoaded', () => {
-        if(!localStorage.getItem('cart')){
-            section.innerHTML = `
-            <div class="col-lg-12 wow fadeInDown" data-wow-delay=".4s">
-                <h6 class="text-center mb-3">carrito vacío</h6>
-                <div class="button d-flex justify-content-center">
-                    <a href="/tienda" class="btn">Volver a tienda</a>
-                </div>
-            </div>
-            `;
-            return;
+
+        if(!localStorage.getItem('cart')){ // si no existe cart en el localStorage.
+            whitOutProducts();
         }
+
         setToCart();
     });
 
+    const whitOutProducts = () => {
+        section.innerHTML = `
+        <div class="col-lg-12 wow fadeInDown" data-wow-delay=".4s">
+            <h6 class="text-center mb-3">carrito vacío</h6>
+            <div class="button d-flex justify-content-center">
+                <a href="/tienda" class="btn">Volver a tienda</a>
+            </div>
+        </div>
+        `;
+    }
+
     const setToCart = () => {
 
-        if (products.length === 0) {
-        section.innerHTML = `
-            <div class="col-lg-12 wow fadeInDown" data-wow-delay=".4s">
-                <h6 class="text-center mb-3">carrito vacío</h6>
-                <div class="button d-flex justify-content-center">
-                    <a href="/tienda" class="btn">Volver a tienda</a>
-                </div>
-            </div>
-            `;
-            localStorage.setItem('cart',JSON.stringify(products));
+        if (products.length === 0) { // si el usuario elimina lso productos del carrito.
+            localStorage.removeItem('cart');
+            whitOutProducts();
             return;
         }
 
-        items.innerHTML = '';
+        items.innerHTML = ''; // se vacía la sección 'items' para cuando vuelva a agregar productos no se sobreescriba.
+        let count = 0;
         products.forEach(item => {
             const div = document.createElement('div');
             const content = `
@@ -110,7 +109,7 @@
 
                 <div class="row">
                     <div class="col-lg-12 d-flex justify-content-end">
-                        <h6 class="delete" data-name="${item.name}" name="delete" style="cursor: pointer;">x</h6>
+                        <h6 class="delete" data-id="${count++}" name="delete" style="cursor: pointer;">x</h6>
                     </div>
                     <div class="col-lg-4 text-center">
                         <img src="/images/products/${item.logo}" alt="imagen" class="" style="height: 100px;">
@@ -128,25 +127,25 @@
             div.innerHTML = content;
             items.appendChild(div);
 
+            // se añade un listener a los botones para eliminar productos, se ejecuta una función, curioso el que no tenga el ().
             div.querySelector('.delete').addEventListener('click', removeProduct);
         });
 
-        payProducts();
+        payProducts(); 
 
-        localStorage.setItem('cart', JSON.stringify(products));
+        localStorage.setItem('cart', JSON.stringify(products)); // se añaden lso productos al localStorage por cada actualización.
     }
 
-
+    // Sección de pago
     const payProducts = () => {
         
-
         let subTotal = 0;
         let total = 0;
         products.forEach( item => {
             subTotal += parseFloat(item.price.$numberDecimal)
         });
 
-        total = subTotal + (subTotal * .07);
+        total = subTotal + (subTotal * .07); // se calcula + el 7%.
         
         
         toPay.innerHTML = `
@@ -181,14 +180,10 @@
 
     const removeProduct = e => {
 
-        const name = e.target.dataset.name;
-        
-        for (let i = 0; i < products.length; i++) {
-            if(products[i].name === name){
-                products.splice(i,1);
-                setToCart();
-            }
-        }
+        const id = e.target.dataset.id; // el 'id' está en el data set del botón.
+
+        products.splice(id,1); // se elimina el product en base a su id.
+        setToCart(); // se reasigna el cart.
     }
 
 </script>
