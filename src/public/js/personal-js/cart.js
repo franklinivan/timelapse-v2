@@ -1,3 +1,7 @@
+/* 
+Script para menejar el carrito.
+*/
+
 const products = JSON.parse(localStorage.getItem('cart')); // se obtienen los productos parseados.
 const items = document.getElementById('items');
 const toPay = document.getElementById('toPay');
@@ -5,10 +9,7 @@ const section = document.getElementById('cartShop');
 const fragment = document.createDocumentFragment(); // fragment para insertar los productos a items.
 
 document.addEventListener('DOMContentLoaded', () => {
-
-    if (!localStorage.getItem('cart')) { // si no existe cart en el localStorage.
-        whitOutProducts();
-    }
+    if (!localStorage.getItem('cart')) whitOutProducts(); // si no existe cart en el LS.
     setToCart();
 });
 
@@ -33,34 +34,35 @@ const setToCart = () => {
 
     items.innerHTML = ''; // se vacía la sección 'items' para cuando vuelva a agregar productos no se sobreescriba.
     let count = 0; // variable para identificar los productos en el cart.
-    products.forEach(item => {
 
+    products.forEach(item => {
         const div = document.createElement('div');
+        div.className = 'row';
+
         const content = `
-            <div class="row">
-                <div class="col-lg-12 d-flex justify-content-end">
-                    <h6 class="delete" data-id="${count++}" style="cursor: pointer;">X</h6>
-                </div>
-                <div class="col-lg-4 text-center">
-                    <img src="/images/products/${item.logo}" alt="imagen" style="height: 100px;">
-                </div>
-                <div class="col-lg-8 d-flex align-items-center">
-                    <p>Curso de <span>${item.name}</span></p>
-                </div>
-                <hr class="my-3">
+            <div class="col-lg-12 d-flex justify-content-end">
+                <h6 class="delete" data-id="${count++}" style="cursor: pointer;">X</h6>
             </div>
-            `
+            <div class="col-lg-4 text-center">
+                <img src="/images/products/${item.logo}" alt="imagen" style="height: 100px;">
+            </div>
+            <div class="col-lg-8 d-flex align-items-center">
+                <p>Curso de <span>${item.name}</span></p>
+            </div>
+            <hr class="my-3">
+            `;
+
         div.innerHTML = content;
         fragment.appendChild(div);
 
-        // se añade un listener a los botones para eliminar productos, se ejecuta una función, curioso que no tenga el ().
+        // listener a los btns para eliminar productos, se ejecuta una función, curioso que no tenga el ().
         div.querySelector('.delete').addEventListener('click', removeProduct);
     });
 
     items.appendChild(fragment); // se añaden los productos.
     payProducts();
 
-    localStorage.setItem('cart', JSON.stringify(products)); // se añaden los productos al localStorage por cada actualización.
+    localStorage.setItem('cart', JSON.stringify(products)); // se añaden los productos al LS por cada actualización.
 }
 
 const payProducts = () => {
@@ -103,9 +105,7 @@ const payProducts = () => {
 }
 
 const removeProduct = e => {
-
     const id = e.target.dataset.id; // el 'id' está en el data set del botón.
-
     products.splice(id, 1); // se elimina el product en base a su id.
     setToCart(); // se reasigna el cart.
 }
