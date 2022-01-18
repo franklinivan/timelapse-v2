@@ -115,10 +115,6 @@ router.get('/curso/:name', isAuthenticated, (req, res) => {
 //     }
 // });
 
-router.get('/prueba', isAuthenticated, (req, res) => {
-    res.render('pages/prueba');
-});
-
 function isAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();

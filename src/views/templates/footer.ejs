@@ -1,46 +1,5 @@
 <!------------ AREA DE MODALS ---------------->
 
-<!-- FACTURA -->
-<div class="modal fade" id="factura" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content p-5">
-            <div class="modal-body">
-                <%if(typeof hola !=='undefined' ){%>
-                    <% var modal="factura" %>
-                
-                <div class="row align-items-center">
-                    <div class="col-lg-6 col-s-6 wow fadeInUp">
-                        <img src="/images/logo/t.png" alt="" height="100px">
-                            <h2 class="font-weight-bold">Gracias por tu compra en <span class="text-primary">TimeLapse</span>.</h2>
-                            <p>Sabemos que nuestros cursos te encantarán.</p>
-                    </div>
-                    <div class="col-lg-6 col-s-6 wow fadeInUp">
-                        <h4 class="">Detalles</h4>
-                        <hr>
-                        <% products.forEach(product => { %>
-                            <div> 
-                                <h6>Curso de: <%=product.name %>  </h6>
-                                <span>Precio: $ <%=product.price %> </span>
-                                <hr>
-                            </div>
-                        <% }); %> 
-
-                        <h6>Total: $ <span class="text-primary"><%= totalAmount %></span> </h6>
-                        <% } %>
-                    </div>
-                    <div class="col-12 mt-5">
-                        <div class="button wow fadeInUp text-center" data-wow-delay=".2s">
-                            <button type="button"  class="btn" data-bs-dismiss="modal" onclick="renderCart()">Continuar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </div>
-</div>
-<!-- FIN DE LOGIN -->
-
 <!-- LOGIN -->
 <div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -61,29 +20,29 @@
                                 <%=mensajeLogin%>
                             </h5>
                             <% var modal="login" %>
-                                <% } %>
-                                    <form method="POST" action="/login">
-                                        <div class="mb-3 wow fadeInUp" data-wow-delay=".1s">
-                                            <label for="usuario" class="col-form-label"><b>Usuario:</b></label>
-                                            <input type="text" class="form-control" id="usuario" name="user" required>
-                                        </div>
-                                        <div class="mb-3 mb-5 wow fadeInUp" data-wow-delay=".1s">
-                                            <label for="contraseña" class="col-form-label"><b>Contraseña:</b></label>
-                                            <input type="password" class="form-control" id="contraseña" name="password"
-                                                required>
-                                            <br>
-                                            <a href="#!" class="float-right">Olvide mi contraseña.</a>
-                                        </div>
-                                        <br>
-                                        <div class="button wow fadeInUp text-center" data-wow-delay=".2s">
-                                            <button type="submit" class="btn mb-2">Iniciar
-                                                Sesión</button>
-                                            <br> O
-                                            <br>
-                                            <button class="btn mb-4" data-bs-toggle="modal" data-bs-target="#registro"
-                                                data-bs-dismiss="modal">Registrate</button>
-                                        </div>
-                                    </form>
+                        <% } %>
+                        <form method="POST" action="/login">
+                            <div class="mb-3 wow fadeInUp" data-wow-delay=".1s">
+                                <label for="usuario" class="col-form-label"><b>Usuario:</b></label>
+                                <input type="text" class="form-control" id="usuario" name="user" required>
+                            </div>
+                            <div class="mb-3 mb-5 wow fadeInUp" data-wow-delay=".1s">
+                                <label for="contraseña" class="col-form-label"><b>Contraseña:</b></label>
+                                <input type="password" class="form-control" id="contraseña" name="password"
+                                    required>
+                                <br>
+                                <a href="#!" class="float-right">Olvide mi contraseña.</a>
+                            </div>
+                            <br>
+                            <div class="button wow fadeInUp text-center" data-wow-delay=".2s">
+                                <button type="submit" class="btn mb-2">Iniciar
+                                    Sesión</button>
+                                <br> O
+                                <br>
+                                <button class="btn mb-4" data-bs-toggle="modal" data-bs-target="#registro"
+                                    data-bs-dismiss="modal">Registrate</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -125,37 +84,8 @@
 </div>
 <!-- FIN DE TIPO DE REGISTRO -->
 
-<!-- PRUEBA DE CONOCIMIENTO -->
-
-<div class="modal fade" id="slctpr" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="selectregmodal">Iniciar Sesion</h5>
-                <button type="button" class="btn btn-clos" data-bs-dismiss="modal" aria-label="Close">X</button>
-            </div>
-
-            <div class="login-form">
-                <h6>Seleccione una de las opciones:</h6>
-
-                <div class="button wow fadeInUp" data-wow-delay=".7s">
-                    <button class="btn" type="submit" data-bs-toggle="modal" data-bs-target="#regmanual"
-                        data-bs-dismiss="modal">Omitir</button>
-                    <button class="btn" type="submit" href="/prueba" data-bs-dismiss="modal">Realizar Prueba de
-                        Conocimiento</button>
-                </div>
-            </div>
-
-
-        </div>
-    </div>
-</div>
-
-
-<!-- /FIN PRUEBA DE CONOCIMIENTO -->
 
 <!-- REGISTRO MANUAL -->
-
 <div class="modal fade" id="regmanual" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content p-5">
@@ -169,62 +99,54 @@
                     <%=mensajeRegistro%>
                 </h5>
                 <% var modal="regmanual" %>
-                    <% } %>
-                        <form action="/register" method="POST" class="wow fadeInUp" data-wow-delay=".1s">
+            <% } %>
+            <form action="/register" method="POST" class="wow fadeInUp" data-wow-delay=".1s">
 
-                            <div class="row">
-                                <div class="col-md-6 col-12 mb-3">
-                                    <label for="nombre" class="col-form-label"><b>Nombre:</b></label>
-                                    <input type="text" class="form-control" id="nombre" name="nombre" required>
-                                </div>
+                <div class="row">
+                    <div class="col-md-6 col-12 mb-3">
+                        <label for="nombre" class="col-form-label"><b>Nombre:</b></label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    </div>
 
-                                <div class="col-md-6 col-12 mb-3">
-                                    <label for="apellido" class="col-form-label"><b>Apellido:</b></label>
-                                    <input type="text" class="form-control" id="apellido" name="apellido" required>
-                                </div>
-                                <!--
-                                <div class="col-md-6 col-12 mb-3">
-                                    <label for="edad" class="col-form-label"><b>Edad:</b></label>
-                                    <input type="text" class="form-control" id="edad" name="age" required>
-                                </div>
-                                -->
-                            </div>
+                    <div class="col-md-6 col-12 mb-3">
+                        <label for="apellido" class="col-form-label"><b>Apellido:</b></label>
+                        <input type="text" class="form-control" id="apellido" name="apellido" required>
+                    </div>
+                </div>
 
-                            <div class="row">
-                                <div class="col-md-12 col-6 mb-3">
-                                    <label for="correo" class="col-form-label"><b>Usuario:</b></label>
-                                    <input type="text" class="form-control" id="usuario" name="user" required>
-                                </div>
+                <div class="row">
+                    <div class="col-md-12 col-6 mb-3">
+                        <label for="correo" class="col-form-label"><b>Usuario:</b></label>
+                        <input type="text" class="form-control" id="usuario" name="user" required>
+                    </div>
 
-                                <div class="col-md-12 col-6 mb-3">
-                                    <label for="contraseña" class="col-form-label"><b>Contraseña:</b></label>
-                                    <input type="password" class="form-control" id="contraseña" name="password"
-                                        required>
-                                </div>
+                    <div class="col-md-12 col-6 mb-3">
+                        <label for="contraseña" class="col-form-label"><b>Contraseña:</b></label>
+                        <input type="password" class="form-control" id="contraseña" name="password"
+                            required>
+                    </div>
 
-                            </div>
+                </div>
 
-                            <input type="checkbox" id="terminos" required>
-                            <label for="terminos"> Acepto la politica de privacidad</label> <a
-                                href="/politicaPrivacidad">(Ver)</a>
+                <input type="checkbox" id="terminos" required>
+                <label for="terminos"> Acepto la politica de privacidad</label> <a
+                    href="/politicaPrivacidad">(Ver)</a>
 
-                            <div class="button wow fadeInUp text-center mt-3" data-wow-delay=".1s">
-                                <button class="btn" type="submit">Registrarse</button>
+                <div class="button wow fadeInUp text-center mt-3" data-wow-delay=".1s">
+                    <button class="btn" type="submit">Registrarse</button>
 
-                            </div>
-                            <hr class="wow fadeInUp" data-wow-delay=".1s">
-                            <a class="wow fadeInUp" href="#!" data-bs-toggle="modal" data-bs-target="#registro"
-                                data-bs-dismiss="modal" data-wow-delay=".1s">Volver</a>
-                        </form>
-
+                </div>
+                <hr class="wow fadeInUp" data-wow-delay=".1s">
+                <a class="wow fadeInUp" href="#!" data-bs-toggle="modal" data-bs-target="#registro"
+                    data-bs-dismiss="modal" data-wow-delay=".1s">Volver</a>
+            </form>
         </div>
     </div>
 </div>
-
 <!-- /FIN Registro Manual -->
 
-<!-- REGISTRO AUTOMATICO -->
 
+<!-- REGISTRO AUTOMATICO -->
 <div class="modal fade" id="regauto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content p-5">
@@ -238,53 +160,53 @@
                     <%=mensajeRegistroAuto%>
                 </h5>
                 <% var modal="regauto" %>
-                    <% } %>
-                        <form method="POST" action="/registerAuto" class="wow fadeInUp" data-wow-delay=".1s">
+            <% } %>
+            <form method="POST" action="/registerAuto" class="wow fadeInUp" data-wow-delay=".1s">
 
-                            <div class="row">
-                                <div class="col-md-6 col-12 mb-3">
-                                    <label for="nombre" class="col-form-label"><b>Nombre:</b></label>
-                                    <input type="text" class="form-control" id="nombre" name="nombre">
-                                </div>
-                                <div class="col-md-6 col-12 mb-3">
-                                    <label for="apellido" class="col-form-label"><b>Apellido:</b></label>
-                                    <input type="text" class="form-control" id="apellido" name="apellido">
-                                </div>
-                            </div>
+                <div class="row">
+                    <div class="col-md-6 col-12 mb-3">
+                        <label for="nombre" class="col-form-label"><b>Nombre:</b></label>
+                        <input type="text" class="form-control" id="nombre" name="nombre">
+                    </div>
+                    <div class="col-md-6 col-12 mb-3">
+                        <label for="apellido" class="col-form-label"><b>Apellido:</b></label>
+                        <input type="text" class="form-control" id="apellido" name="apellido">
+                    </div>
+                </div>
 
-                            <div class="mb-3">
-                                <label for="celular" class="col-form-label"><b>Número de celular:</b></label>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="prefijo">+507</span>
-                                    <input type="number" class="form-control" id="celular" name="celular"
-                                        aria-describedby="prefijo">
-                                </div>
-                            </div>
-                            <input type="hidden" name="user" value="user">
-                            <input type="hidden" name="password" value="password">
+                <div class="mb-3">
+                    <label for="celular" class="col-form-label"><b>Número de celular:</b></label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="prefijo">+507</span>
+                        <input type="number" class="form-control" id="celular" name="celular"
+                            aria-describedby="prefijo">
+                    </div>
+                </div>
+                <input type="hidden" name="user" value="user">
+                <input type="hidden" name="password" value="password">
 
-                            <input type="checkbox" id="terminos" required>
-                            <label for="terminos"> Acepto la politica de privacidad</label> <a
-                                href="/politicaPrivacidad">(Ver)</a>
+                <input type="checkbox" id="terminos" required>
+                <label for="terminos"> Acepto la politica de privacidad</label> <a
+                    href="/politicaPrivacidad">(Ver)</a>
 
-                            <div class="button wow fadeInUp text-center mt-3" data-wow-delay=".1s">
-                                <button class="btn" type="submit">Registrarse</button>
-                                <!--
-                        <button class="btn" type="submit" data-bs-toggle="modal" data-bs-target="#mensajeAuto"
-                        data-bs-dismiss="modal">Registrarse</button>-->
-                            </div>
-                        </form>
-                        <hr class="wow fadeInUp" data-wow-delay=".1s">
-                        <a class="wow fadeInUp" href="#!" data-bs-toggle="modal" data-bs-target="#registro"
-                            data-bs-dismiss="modal" data-wow-delay=".1s">Volver</a>
+                <div class="button wow fadeInUp text-center mt-3" data-wow-delay=".1s">
+                    <button class="btn" type="submit">Registrarse</button>
+                    <!--
+            <button class="btn" type="submit" data-bs-toggle="modal" data-bs-target="#mensajeAuto"
+            data-bs-dismiss="modal">Registrarse</button>-->
+                </div>
+            </form>
+            <hr class="wow fadeInUp" data-wow-delay=".1s">
+            <a class="wow fadeInUp" href="#!" data-bs-toggle="modal" data-bs-target="#registro" data-bs-dismiss="modal" data-wow-delay=".1s">
+                Volver
+            </a>
         </div>
     </div>
 </div>
-
 <!-- /FIN REGISTRO AUTOMATICO -->
 
-<!-- MENSAJE REGISTRO AUTOMATICO-->
 
+<!-- MENSAJE REGISTRO AUTOMATICO-->
 <div class="modal fade" id="mensajeAuto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content p-5">
@@ -312,8 +234,8 @@
 </div>
 <!-- /FIN MENSAJE REGISTRO AUTOMATICO-->
 
-<!-- MENSAJE REGISTRO MANUAL-->
 
+<!-- MENSAJE REGISTRO MANUAL-->
 <div class="modal fade" id="mensajeManual" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content p-5">
@@ -339,7 +261,7 @@
     </div>
 </div>
 <!-- /FIN MENSAJE REGISTRO MANUAL-->
-<!------------ /FIN AREA DE MODALS ---------------->
+
 
 <!-- Start Footer Area -->
 <footer class="footer">
@@ -357,9 +279,7 @@
                         <p>En busqueda de la mejora <br> continua para ofrecerte los mejores servicios.</p>
                         <div class="footer-social">
                             <ul>
-                                <!-- <li><a href="#"><i class="fab fa-twitter"></i></a></li>-->
                                 <li><a href="https://www.instagram.com/timelapse_utp/" target="_blanck"><i class="fab fa-instagram"></i></a></li>
-                                <!-- <li><a href="#"><i class="fab fa-github"></i></a></li>-->
                             </ul>
                         </div>
                     </div>
@@ -397,7 +317,6 @@
                             <h4>¿Sabías que TimeLapse nació de una innovación para ayudar a las personas que no
                                 tienen muchos conocimientos en las aplicaciones cotidianas?</h4>
                             <p>Cuéntales a las personas que crees que puedan necesitar a TimeLapse.</p>
-                            <!-- <img src="images/favicon.svg" alt="" style="height: 70px; width: 70px;"> -->
                         </div>
                     </div>
                 </div>
@@ -423,8 +342,8 @@
     <!-- End Footer Middle -->
 
 </footer>
-
 <!--/ End Footer Area -->
+
 <!-- ========================= scroll-top ========================= -->
 <a href="#" class="scroll-top btn-hover">
     <i class="fas fa-chevron-up"></i>
@@ -440,24 +359,21 @@
 <script src="/js/imagesloaded.min.js"></script>
 <script src="/js/isotope.min.js"></script>
 <script src="/js/main.js"></script>
-<!-- <script src="/js/personal-js/cart.js"></script> -->
-<!-- <script src="/js/personal-js/franklin.js"></script> -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
     crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+<!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
     integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+    crossorigin="anonymous"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
     integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
-    crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script> -->
 <script>
     var modal = <%= modal %>;
     var myModal = new bootstrap.Modal(document.getElementById(modal.id))
     myModal.show()
 </script>
-<!-- <script src="/js/personal-js/toast.js"></script> -->
-
 
 </body>
 
